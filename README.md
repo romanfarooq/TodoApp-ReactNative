@@ -1,6 +1,4 @@
 # TODO APP -- Raect Native
-[]: # Title: TODO APP -- Raect Native
-[]: # Author: [Roman](https://github.com/romanfarooq)
 
 ## Description
 This is a simple todo app built with React-Native implemented with Mern Stack.
