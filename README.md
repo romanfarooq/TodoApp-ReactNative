@@ -83,8 +83,6 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 - [Redux Toolkit](https://redux-toolkit.js.org/)
 - [React Router](https://reactrouter.com/)
 - [Axios](https://axios-http.com/)
-- [React Icons](https://react-icons.github.io/react-icons/)
-- [Material UI](https://material-ui.com/)
 - [Node.js](https://nodejs.org/en/)
 - [Express](https://expressjs.com/)
 - [Mongoose](https://mongoosejs.com/)
