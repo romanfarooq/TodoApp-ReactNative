@@ -8,7 +8,7 @@ This is a simple todo app built with React-Native implemented with Mern Stack.
 
 ## clone or download
 ```terminal
-$ git clone https://github.com/romanfarooq/E-Commerce-MERN-Stack.git
+$ git clone https://github.com/romanfarooq/TodoApp-ReactNative.git
 $ npm install
 ```
 
