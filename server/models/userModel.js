@@ -17,7 +17,7 @@ const userSchema = new mongoose.Schema({
     select: false,
   },
   avatar: {
-    pulic_id: String,
+    public_id: String,
     url: String,
   },
   createdAt: {
@@ -32,8 +32,12 @@ const userSchema = new mongoose.Schema({
       createdAt: Date,
     },
   ],
-  ottp: Number,
-  ottpExpires: Date,
+  verified: {
+    type: Boolean,
+    default: false,
+  },
+  otp: Number,
+  otpExpires: Date,
 });
 
-export const User = mongoose.model("User", userSchema);
+export default mongoose.model("User", userSchema);
