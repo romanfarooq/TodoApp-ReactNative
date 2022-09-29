@@ -12,13 +12,15 @@ $ npm install
 
 ## project structure
 ```terminal
-.gitignore
+README.md
 server/
    package.json
    .env (create .env file, check [Configuration and Setup session])
+   .gitignore
 client/
    package.json
    .env (create .env file, check [Configuration and Setup session])
+   .gitignore
 ...
 ```
 
@@ -68,15 +70,15 @@ SMPT_SERVICE =
 SMPT_USER = 
 SMPT_PASS =
 CLOUD_NAME =
-CLOUDINARY_API_KEY =
-CLOUDINARY_API_SECRET =
+CLOUD_API_KEY =
+CLOUD_API_SECRET =
 ```
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 
 
-## Acknowledgements
+## Technologies
 - [React](https://reactjs.org/)
 - [React Native](https://reactnative.dev/)
 - [React Redux](https://react-redux.js.org/)

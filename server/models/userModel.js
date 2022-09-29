@@ -13,7 +13,6 @@ const userSchema = new mongoose.Schema({
   password: {
     type: String,
     required: true,
-    minlength: [8, "Password must be at least 8 characters long"],
     select: false,
   },
   avatar: {
@@ -38,6 +37,10 @@ const userSchema = new mongoose.Schema({
   },
   otp: Number,
   otpExpires: Date,
+  resetPasswordOtp: Number,
+  resetPasswordOtpExpires: Date,
 });
+
+userSchema.index({ otpExpires: 1 }, { expireAfterSeconds: 0 });
 
 export default mongoose.model("User", userSchema);

@@ -6,8 +6,16 @@ const sendToken = (user, statusCode, res, message) => {
     expiresIn: process.env.JWT_COOKIE_EXPIRE * 60 * 60 * 24 * 1000,
   });
 
-  const { password, createdAt, otp, otpExpires, ...userData } = user._doc;
-
+  const {
+    password,
+    createdAt,
+    otp,
+    otpExpires,
+    resetPasswordOtp,
+    resetPasswordOtpExpires,
+    ...userData
+  } = user._doc;
+  
   const options = {
     httpOnly: true,
     expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRE * 24 * 60 * 60 * 1000),
