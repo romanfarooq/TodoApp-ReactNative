@@ -1,4 +1,4 @@
-# TODO APP -- Raect Native
+# TODO APP -- React Native
 
 ## Description
 This is a simple todo app built with React-Native implemented with Mern Stack.
