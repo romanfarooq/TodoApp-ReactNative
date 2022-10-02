@@ -5,7 +5,7 @@ import Login from "./screens/Login";
 import Footer from "./components/Footer";
 import Profile from "./screens/Profile";
 import Register from "./screens/Register";
-import Camera from "./screens/Camera";
+import Camera from "./screens/CameraComponent";
 
 const Stack = createNativeStackNavigator();
 
