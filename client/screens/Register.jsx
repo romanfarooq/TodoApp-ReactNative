@@ -1,28 +1,42 @@
-import { useNavigation } from "@react-navigation/native";
 import { useState } from "react";
-import {
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  TouchableOpacity,
-} from "react-native";
-import { Button } from "react-native-paper";
+import { View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { useNavigation } from "@react-navigation/native";
+import { Avatar, Button } from "react-native-paper";
 
-const Login = () => {
+const Register = () => {
+
+  const [avatar, setAvatar] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigation = useNavigation();
 
-  const handleLogin = () => {
-    console.log("login");
+  const handleImage = () => {
+    navigation.navigate("Camera");
+  };
+
+  const handleRegister = () => {
+    console.log("register");
   };
 
   return (
     <View style={styles.container}>
-      <Text style={styles.heading}>Welcome</Text>
+      <Avatar.Image
+        size={100}
+        source={{ uri: avatar ? avatar : null }}
+        style={styles.avatar}
+      />
+      <TouchableOpacity onPress={handleImage}>
+        <Text style={styles.textPhoto}>Change Photo</Text>
+      </TouchableOpacity>
       <View style={styles.inputContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Name"
+          value={name}
+          onChangeText={setName}
+        />
         <TextInput
           style={styles.input}
           placeholder="Email"
@@ -38,15 +52,14 @@ const Login = () => {
         />
       </View>
       <Button
-        disabled={!email && !password}
+        disabled={!name && !email && !password}
         style={styles.btn}
-        onPress={handleLogin}
+        onPress={handleRegister}
       >
-        <Text style={styles.textLogin}>Login</Text>
+        <Text style={styles.textRegister}>Login</Text>
       </Button>
-      <Text style={styles.textOr}>OR</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("Register")}>
-        <Text style={styles.textRegister}>Sign Up</Text>
+      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+        <Text style={styles.textLogin}>Already have a Account, Login</Text>
       </TouchableOpacity>
     </View>
   );
@@ -59,9 +72,8 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  heading: {
-    fontSize: 20,
-    margin: 20,
+  avatar: {
+    backgroundColor: "#900",
   },
   inputContainer: {
     width: "70%",
@@ -81,17 +93,14 @@ const styles = StyleSheet.create({
     padding: 5,
     width: "70%",
   },
-  textLogin: {
+  textRegister: {
     color: "white",
   },
-  textOr: {
-    marginTop: 20,
-  },
-  textRegister: {
+  textLogin: {
     color: "#900",
     height: 30,
     margin: 20,
   },
 });
 
-export default Login;
+export default Register;

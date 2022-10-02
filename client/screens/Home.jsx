@@ -13,10 +13,8 @@ import {
 import Task from "../components/Task";
 import { Entypo } from "react-native-vector-icons";
 import { Dialog, Button } from "react-native-paper";
-// import { useNavigation } from "@react-navigation/native";
 
 const Home = () => {
-  // const navigation = useNavigation();
 
   const [openDialog, setOpenDialog] = useState(false);
   const [title, setTitle] = useState("");
