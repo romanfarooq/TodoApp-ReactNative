@@ -1,5 +1,4 @@
-import { useNavigation } from "@react-navigation/native";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,16 +7,30 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Button } from "react-native-paper";
+import { useNavigation } from "@react-navigation/native";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../redux/action";
 
 const Login = () => {
+
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  const { error } = useSelector((state) => state.auth);
 
   const handleLogin = () => {
-    console.log("login");
+    dispatch(login(email, password));
   };
+
+  useEffect(() => {
+    if (error) {
+      alert(error);
+      dispatch({ type: "clearError" });
+    }
+  }, [error, dispatch, alert]);
 
   return (
     <View style={styles.container}>
@@ -38,14 +51,14 @@ const Login = () => {
         />
       </View>
       <Button
-        disabled={!email && !password}
+        disabled={!email || !password}
         style={styles.btn}
         onPress={handleLogin}
       >
         <Text style={styles.textLogin}>Login</Text>
       </Button>
       <Text style={styles.textOr}>OR</Text>
-      <TouchableOpacity onPress={() => navigation.navigate("Register")}>
+      <TouchableOpacity onPress={() => navigation.navigate("register")}>
         <Text style={styles.textRegister}>Sign Up</Text>
       </TouchableOpacity>
     </View>

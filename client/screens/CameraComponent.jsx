@@ -6,12 +6,13 @@ import * as ImagePicker from "expo-image-picker";
 import { useNavigation, useRoute } from "@react-navigation/native";
 
 const CameraComponent = () => {
+  
   const [hasPermission, setHasPermission] = useState(null);
   const [type, setType] = useState(CameraType.back);
   const [camera, setCamera] = useState(null);
 
   const navigation = useNavigation();
-  const { updateProfile } = useRoute();
+  const route = useRoute();
 
   useEffect(() => {
     (async () => {
@@ -35,10 +36,10 @@ const CameraComponent = () => {
       quality: 1,
     });
 
-    if (updateProfile) {
-      navigation.navigate("Profile", { image: data.uri });
+    if (route.params?.updateProfile) {
+      navigation.navigate("profile", { image: data.uri });
     } else {
-      navigation.navigate("Register", { image: data.uri });
+      navigation.navigate("register", { image: data.uri });
     }
 
   };
@@ -46,13 +47,12 @@ const CameraComponent = () => {
   const clickPicture = async () => {
 
     const data = await camera.takePictureAsync();
-
-    if (updateProfile) {
-      navigation.navigate("Profile", { image: data.uri });
-    } else {
-      navigation.navigate("Register", { image: data.uri });
-    }
     
+    if (route.params?.updateProfile) {
+      navigation.navigate("profile", { image: data.uri });
+    } else {
+      navigation.navigate("register", { image: data.uri });
+    }
   };
 
   if (hasPermission === null) {
@@ -71,7 +71,7 @@ const CameraComponent = () => {
         ratio="1:1"
         ref={(e) => setCamera(e)}
       />
-      <View style={styles.MaterialIconsConatiner}>
+      <View style={styles.iconsContainer}>
         <MaterialIcons
           name="image"
           size={40}
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
     flex: 1,
     aspectRatio: 1,
   },
-  MaterialIconsConatiner: {
+  iconsContainer: {
     flexDirection: "row",
     position: "absolute",
     bottom: 10,

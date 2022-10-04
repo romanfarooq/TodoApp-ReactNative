@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -13,40 +13,45 @@ import {
 import Task from "../components/Task";
 import { Entypo } from "react-native-vector-icons";
 import { Dialog, Button } from "react-native-paper";
+import { useDispatch, useSelector } from "react-redux";
+import { addTask, loadUser } from "../redux/action";
 
 const Home = () => {
-
+  
   const [openDialog, setOpenDialog] = useState(false);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
 
+  const dispatch = useDispatch();
+  const { user } = useSelector((state) => state.auth);
+  const { loading, message, error } = useSelector((state) => state.message);
+
   const handleDialog = () => setOpenDialog(!openDialog);
 
-  const handleAddTask = () => {
-    console.log("add task");
+  const handleAddTask = async () => {
+    await dispatch(addTask(title, description));
+    dispatch(loadUser());
   };
 
-  const tasks = [
-    {
-      title: "title 1",
-      description: "sample 1",
-      status: true,
-      _id: 1,
-    },
-    {
-      title: "title 2",
-      description: "sample 2",
-      status: false,
-      _id: 2,
-    },
-  ];
+  useEffect(() => {
+    if (error) {
+      alert(error);
+      dispatch({ type: "clearError" });
+    }
+    if (message) {
+      alert(message);
+      dispatch({ type: "clearMessage" });
+    }
+  }, [alert, error, message, dispatch]);
+
   return (
     <>
       <View style={styles.container}>
         <ScrollView>
           <SafeAreaView>
             <Text style={styles.heading}>All Tasks</Text>
-            {tasks && tasks.map((item) => <Task key={item._id} task={item} />)}
+            {user &&
+              user.tasks.map((task) => <Task key={task._id} task={task} />)}
             <TouchableOpacity style={styles.addBtn} onPress={handleDialog}>
               <Entypo name="add-to-list" size={20} color="#900" />
             </TouchableOpacity>
@@ -68,11 +73,15 @@ const Home = () => {
             value={description}
             onChangeText={setDescription}
           />
-          <View style={styles.dialogContainer}>
+          <View style={styles.submitContainer}>
             <TouchableOpacity onPress={handleDialog}>
               <Text>CANCEL</Text>
             </TouchableOpacity>
-            <Button color="#900" onPress={handleAddTask}>
+            <Button
+              color="#900"
+              onPress={handleAddTask}
+              disabled={!title || !description || loading}
+            >
               ADD
             </Button>
           </View>
@@ -107,7 +116,7 @@ const styles = StyleSheet.create({
     marginVertical: 20,
     elevation: 5,
   },
-  dialogContainer: {
+  submitContainer: {
     flexDirection: "row",
     alignItems: "center",
   },

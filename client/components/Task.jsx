@@ -2,27 +2,32 @@ import { useState } from "react";
 import { View, Text, StyleSheet } from "react-native";
 import { Checkbox } from "react-native-paper";
 import { AntDesign } from "react-native-vector-icons";
+import { useDispatch } from "react-redux";
+import { loadUser, updateTask } from "../redux/action";
 
-const Task = ({ task }) => {
-  
-  const [completed, setCompleted] = useState(task.status);
+const Task = ({ task: { title, description, completed, _id } }) => {
+
+  const dispatch = useDispatch();
+  const [status, setStatus] = useState(completed);
 
   const handleCompleted = () => {
-    setCompleted(!completed);
+    setStatus(!status);
+    dispatch(updateTask(_id));
   };
 
-  const handleDelete = () => {
-    console.log("delete");
+  const handleDelete = async () => {
+    await dispatch(deleteTask(_id));
+    dispatch(loadUser());
   };
 
   return (
     <View style={styles.container}>
       <View style={styles.textContainer}>
-        <Text style={styles.heading}>{task.title}</Text>
-        <Text style={styles.description}>{task.description}</Text>
+        <Text style={styles.heading}>{title}</Text>
+        <Text style={styles.description}>{description}</Text>
       </View>
       <Checkbox
-        status={completed ? "checked" : "unchecked"}
+        status={status ? "checked" : "unchecked"}
         color="#474747"
         onPress={handleCompleted}
       />

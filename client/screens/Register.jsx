@@ -1,24 +1,52 @@
-import { useState } from "react";
-import { View, Text, TextInput, StyleSheet, TouchableOpacity } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useState, useEffect } from "react";
+import {
+  View,
+  Text,
+  TextInput,
+  StyleSheet,
+  TouchableOpacity,
+} from "react-native";
+import { useNavigation, useRoute } from "@react-navigation/native";
 import { Avatar, Button } from "react-native-paper";
+import { useDispatch } from "react-redux";
+import { register } from "../redux/action";
+import mime from "mime";
 
 const Register = () => {
-
+  
   const [avatar, setAvatar] = useState("");
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const navigation = useNavigation();
+  const route = useRoute();
+  const dispatch = useDispatch();
 
   const handleImage = () => {
-    navigation.navigate("Camera");
+    navigation.navigate("camera", {
+      updateProfile: false,
+    });
   };
 
   const handleRegister = () => {
-    console.log("register");
+    const myForm = new FormData();
+    myForm.append("name", name);
+    myForm.append("email", email);
+    myForm.append("password", password);
+    myForm.append("avatar", {
+      uri: avatar,
+      type: mime.getType(avatar),
+      name: avatar.split("/").pop(),
+    });
+    dispatch(register(myForm));
   };
+
+  useEffect(() => {
+    if (route.params?.image) {
+      setAvatar(route.params.image);
+    }
+  }, [route.params?.image]);
 
   return (
     <View style={styles.container}>
@@ -52,13 +80,13 @@ const Register = () => {
         />
       </View>
       <Button
-        disabled={!name && !email && !password}
+        disabled={!name || !email || !password}
         style={styles.btn}
         onPress={handleRegister}
       >
         <Text style={styles.textRegister}>Login</Text>
       </Button>
-      <TouchableOpacity onPress={() => navigation.navigate("Login")}>
+      <TouchableOpacity onPress={() => navigation.navigate("login")}>
         <Text style={styles.textLogin}>Already have a Account, Login</Text>
       </TouchableOpacity>
     </View>
