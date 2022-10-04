@@ -15,7 +15,6 @@ $ npm install
 README.md
 server/
    package.json
-   .env (create .env file, check [Configuration and Setup session])
    .gitignore
 client/
    package.json
@@ -46,17 +45,8 @@ $ npm run dev       // run it locally
 ## Configuration and Setup
 - Open the project in your prefered code editor.
 - Go to terminal -> New terminal (If you are using VS code)
-- Split your terminal into two (run the client on one terminal and the server on the other terminal)
 
-In the first terminal
-- cd client and create a .env file in the root of your client directory.
-- Supply the following credentials
-
-```
-REACT_APP_SERVER_URL = http://localhost:5000
-```
-
-In the second terminal
+In the terminal
 - cd server and create a .env file in the root of your server directory.
 - Supply the following credentials
 

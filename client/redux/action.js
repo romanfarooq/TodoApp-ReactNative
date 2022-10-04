@@ -24,7 +24,9 @@ export const loadUser = () => async (dispatch) => {
   try {
     dispatch({ type: "loadUserRequest" });
 
-    const { data } = await axios.get(`${serverUrl}/me`);
+    const { data } = await axios.get(`${serverUrl}/me`, {
+      withCredentials: true,
+    });
 
     dispatch({ type: "loadUserSuccess", payload: data });
   } catch (error) {
@@ -127,6 +129,7 @@ export const register = (formData) => async (dispatch) => {
         "Content-Type": "multipart/form-data",
       },
     });
+    
     dispatch({ type: "registerSuccess", payload: data });
   } catch (error) {
     dispatch({

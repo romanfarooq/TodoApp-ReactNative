@@ -10,10 +10,10 @@ import Profile from "./screens/Profile";
 import Register from "./screens/Register";
 import Camera from "./screens/CameraComponent";
 import Loader from "./components/Loader";
-// import ChangePassword from "./screens/ChangePassword";
-// import Verify from "./screens/Verify";
-// import ForgetPassword from "./screens/ForgetPassword";
-// import ResetPassword from "./screens/ResetPassword";
+import ChangePassword from "./screens/ChangePassword";
+import Verify from "./screens/Verify";
+import ForgetPassword from "./screens/ForgetPassword";
+import ResetPassword from "./screens/ResetPassword";
 
 const Stack = createNativeStackNavigator();
 
@@ -46,11 +46,11 @@ const Main = () => {
           component={Register}
           options={{ headerShown: false }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="verify"
           component={Verify}
           options={{ headerShown: false }}
-        /> */}
+        />
         <Stack.Screen
           name="camera"
           component={Camera}
@@ -61,7 +61,7 @@ const Main = () => {
           component={Profile}
           options={{ headerShown: false }}
         />
-        {/* <Stack.Screen
+        <Stack.Screen
           name="changepassword"
           component={ChangePassword}
           options={{ headerShown: false }}
@@ -75,7 +75,7 @@ const Main = () => {
           name="resetpassword"
           component={ResetPassword}
           options={{ headerShown: false }}
-        /> */}
+        />
       </Stack.Navigator>
       {isAuthenticated && <Footer />}
     </NavigationContainer>
